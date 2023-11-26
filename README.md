@@ -60,9 +60,9 @@ The implementation involves integrating the following components:
 This project is open-source
 
 ### Contributors
-Otuoniyo Ufuoma-Oghene Humphery [a relative link](https://www.linkedin.com/in/humpheryotu/), </b>
-Alimi RereOluwa Victor [a relative link](alimirereloluwa@gmail.com),</b>
-Asepeoluwa Solutiontech [a relative link](solutionasepekosile@gmail.com), </b>
+Otuoniyo Ufuoma-Oghene Humphery (https://www.linkedin.com/in/humpheryotu/), <br/>
+Alimi RereOluwa Victor (alimirereloluwa@gmail.com),<br/>
+Asepeoluwa Solutiontech (solutionasepekosile@gmail.com), <br/>
 Peter Emmanuel Ameh, </b>
 Temioluwa Akinbile
 
