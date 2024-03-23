@@ -63,7 +63,7 @@ This project is open-source
 Otuoniyo Ufuoma-Oghene Humphery (https://www.linkedin.com/in/humpheryotu/), <br/>
 Alimi RereOluwa Victor (alimirereloluwa@gmail.com),<br/>
 Asepeoluwa Solutiontech (solutionasepekosile@gmail.com), <br/>
-Peter Emmanuel Ameh, </b>
+Peter Emmanuel Ameh (https://www.linkedin.com/in/emmanuel-peter-b79892296/), </br>
 Temioluwa Akinbile
 
 ### Acknowledgments
