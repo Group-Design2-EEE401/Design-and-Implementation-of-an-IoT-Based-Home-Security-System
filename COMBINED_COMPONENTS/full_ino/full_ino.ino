@@ -1,12 +1,11 @@
 #include <LiquidCrystal_I2C.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include <SoftwareSerial.h>
 
 
 // WiFi
-const char *ssid = "Okoli's Reno"; // Enter your Wi-Fi name
-const char *password_ = "d4seibck";  // Enter Wi-Fi password
+const char *ssid = "Umidigi A3_Pro"; // Enter your Wi-Fi name
+const char *password_ = "maxkkott2018";  // Enter Wi-Fi password
 
 // MQTT Broker
 const char *mqtt_broker = "broker.emqx.io";
@@ -20,15 +19,13 @@ String message;
 String client_id = "esp32-client-";
 WiFiClient espClient;
 PubSubClient client(espClient);
-//Create software serial object to communicate with SIM800L
-SoftwareSerial mySerial(17, 16); //SIM800L Tx & Rx is connected to Arduino #3 & #2
 
 LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x3F for a 16 chars and 2 line display
 
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
 #define LED_PIN 13
- 
+
 char keys[ROWS][COLS] = {
   {'1','2','3','A'},
   {'4','5','6','B'},
@@ -38,7 +35,7 @@ char keys[ROWS][COLS] = {
 byte rowPins[ROWS] = {19, 18, 5, 17}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {16, 4, 2, 15}; //connect to the column pinouts of the keypad
 
-const String password = "7914";
+const String password = "7814";
 
 String input_password;
 
@@ -46,33 +43,32 @@ void setup() {
   lcd.init();
   lcd.clear();
   pinMode(LED_PIN, OUTPUT);
-  Serial.begin(115200); //initialize serial communication
-  mySerial.begin(115200);
+  Serial.begin(9600); //initialize serial communication
   digitalWrite(LED_PIN,HIGH);
   // Make sure backlight is on         
   lcd.backlight();      
 
   // Connecting to a WiFi network
-  WiFi.begin(ssid, password_);
-  while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.println("Connecting to WiFi..");
-  }
-  Serial.println("Connected to the Wi-Fi network");
-  //connecting to a mqtt broker
-  client.setServer(mqtt_broker, mqtt_port);
-  client.setCallback(callback);
-  while (!client.connected()) {
-      String client_id = "esp32-client-";
-      client_id += String(WiFi.macAddress());
-      Serial.printf("The client %s connects to the public MQTT broker\n", client_id.c_str());
-      if (client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
-          Serial.println("Public EMQX MQTT broker connected");
-      } else {
-          Serial.print("failed with state ");
-          Serial.print(client.state());
-          delay(2000);
-      }
+    WiFi.begin(ssid, password_);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.println("Connecting to WiFi..");
+    }
+    Serial.println("Connected to the Wi-Fi network");
+    //connecting to a mqtt broker
+    client.setServer(mqtt_broker, mqtt_port);
+    client.setCallback(callback);
+    while (!client.connected()) {
+        String client_id = "esp32-client-";
+        client_id += String(WiFi.macAddress());
+        Serial.printf("The client %s connects to the public MQTT broker\n", client_id.c_str());
+        if (client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
+            Serial.println("Public EMQX MQTT broker connected");
+        } else {
+            Serial.print("failed with state ");
+            Serial.print(client.state());
+            delay(2000);
+        }
 
   for (byte i = 0; i < ROWS; i++) {
     pinMode(rowPins[i], INPUT_PULLUP);
@@ -84,29 +80,12 @@ void setup() {
   }
 
     // Publish and subscribe
-  client.publish(topic, "Hi, I'm ESP32 ^^");
-  client.subscribe(topic_);
+    client.publish(topic, "Hi, I'm ESP32 ^^");
+    client.subscribe(topic_);
 
-}
-
-void callback(char *topic, byte *payload, unsigned int length) {
-    Serial.print("Message arrived in topic: ");
-    Serial.println(topic);
-    Serial.print("Message:");
-
-    // Check if the message is from the same client
-     message = ' ';
-
-    for (int i = 0; i < length; i++) {
-        message += (char) payload[i];
-    }
-    Serial.println();
-    Serial.println("-----------------------");
-    Serial.println(message);
 }
 
 void loop() {
-  client.loop();
   char key = getKey();
   if (key) 
   {
@@ -121,28 +100,18 @@ void loop() {
     else if (key == '#') 
     {
       if (password == input_password) {
-        // scrollMessage("the password is correct, ACCESS NOT GRANTED");
-        // delay(3000);
+        scrollMessage("the password is correct, ACCESS NOT GRANTED");
+        delay(3000);
         client.publish(topic, "GRANT ACCESS");
-        delay(20000);
-        // if (client.connected() && client.available()) {
-        // Check for new MQTT messages and process them accordingly
-        client.loop();
-        // }
-        message.trim();
-        Serial.print("here before:");
-        Serial.println(message);
         if (message == "Access granted"){
-          Serial.println("it entered access");
-          // scrollMessage("ACCESS GRANTED");
+          scrollMessage("ACCESS GRANTED");
           digitalWrite(LED_PIN,LOW);
-          message = ' ';
         } 
          delay(2000);
       } 
       else 
       {
-        // scrollMessage("the password is wrong, ACCESS DENIED");
+        scrollMessage("the password is wrong, ACCESS DENIED");
         client.publish(topic, "SOMEONE TRYING TO BREAK IN");
         digitalWrite(LED_PIN,HIGH);
       }
@@ -155,7 +124,6 @@ void loop() {
       input_password += key; // append new character to input password string
     }
   }
-  // message = " ";
 }
 
 char getKey() {
@@ -210,3 +178,21 @@ void scrollMessage(const char* message) {
   delay(1000);
 }
 
+
+
+
+void callback(char *topic, byte *payload, unsigned int length) {
+    Serial.print("Message arrived in topic: ");
+    Serial.println(topic);
+    Serial.print("Message:");
+
+    // Check if the message is from the same client
+     message = ' ';
+
+    for (int i = 0; i < length; i++) {
+        message += (char) payload[i];
+    }
+    Serial.println();
+    Serial.println("-----------------------");
+    Serial.println(message);
+}
