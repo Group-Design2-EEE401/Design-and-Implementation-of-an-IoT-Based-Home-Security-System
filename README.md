@@ -67,5 +67,5 @@ Peter Emmanuel Ameh, </b>
 Temioluwa Akinbile
 
 ### Acknowledgments
-- Dr T.K Yesufu 
+- Prof T.K Yesufu 
 - Special thanks to the Arduino and ESP32 communities for their valuable resources and support.
