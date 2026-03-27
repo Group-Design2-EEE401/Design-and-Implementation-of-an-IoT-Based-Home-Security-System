@@ -1,5 +1,5 @@
 # Design-and-Implementation-of-an-IoT-Based-Home-Security-System
-This repository contains work done on the project - Design and Implementation of an IoT Based Home Security System
+This repository contains work done on the project - Design and Implementation of an IoT-Based Home Security System
 
 # IoT-Based Home Security System
 
@@ -7,7 +7,7 @@ This repository contains work done on the project - Design and Implementation of
 
 ### Overview
 
-The IoT-Based Home Security System is designed to enhance the security of homes through a smart and accessible locking mechanism. The system employs a keypad for code input, allowing authorized users to unlock the door seamlessly. In the event of unauthorized attempts, the system sends a notification to the user via onboard Wi-Fi, ensuring an additional layer of security.
+The IoT-Based Home Security System is designed to enhance home security through a smart, accessible locking mechanism. The system uses a keypad to enter a code, allowing authorized users to unlock the door seamlessly. In the event of unauthorized attempts, the system sends a notification to the user via onboard Wi-Fi, ensuring an additional layer of security.
 
 ### Features
 
@@ -63,9 +63,9 @@ This project is open-source
 Otuoniyo Ufuoma-Oghene Humphery (https://www.linkedin.com/in/humpheryotu/), <br/>
 Alimi Rereloluwa Victor (alimirereloluwa@gmail.com),<br/>
 Asepeoluwa Solutiontech (solutionasepekosile@gmail.com), <br/>
-Peter Emmanuel Ameh, </b>
+Peter Emmanuel Ameh (https://www.linkedin.com/in/emmanuel-peter-b79892296/), </b>
 Temioluwa Akinbile
 
 ### Acknowledgments
-- Prof T.K Yesufu 
+- Prof. T.K. Yesufu 
 - Special thanks to the Arduino and ESP32 communities for their valuable resources and support.
